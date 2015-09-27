@@ -47,15 +47,25 @@ typedef struct
 
 
 // Internal functions
-static int readTTA(ttaFile_t *file);
+static ttaStatus readTTA(ttaFile_t *file);
 static int readHeader(ttaFile_t *file);
 static int readSeekTable(ttaFile_t *file);
 static int readFrames(ttaFile_t *file);
+static int destroyTTA(ttaFIle_t *file);
 
 
 ttaStatus ttaVerify(char *filename)
 {
+    ttaFile_t ttaFile = {0};
 
+    if ((ttaFile.file = fopen(filename, "rb")) == NULL)
+    {
+        destroyTTA(ttaFile);
+        return TTA_BADIO;
+    }
+    ttaStatus status = readTTA(&ttaFile);
+    destroyTTA(ttaFile);
+    return status;
 }
 
 

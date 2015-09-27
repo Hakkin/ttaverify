@@ -51,7 +51,7 @@ static ttaStatus readTTA(ttaFile_t *file);
 static int readHeader(ttaFile_t *file);
 static int readSeekTable(ttaFile_t *file);
 static int readFrames(ttaFile_t *file);
-static int destroyTTA(ttaFIle_t *file);
+static int destroyTTA(ttaFile_t *file);
 
 
 ttaStatus ttaVerify(char *filename)
@@ -60,12 +60,14 @@ ttaStatus ttaVerify(char *filename)
 
     if ((ttaFile.file = fopen(filename, "rb")) == NULL)
     {
-        destroyTTA(ttaFile);
+        destroyTTA(&ttaFile);
         return TTA_BADIO;
     }
     ttaStatus status = readTTA(&ttaFile);
-    destroyTTA(ttaFile);
+    destroyTTA(&ttaFile);
     return status;
 }
+
+
 
 

@@ -45,3 +45,6 @@
 *.gif
 *.ppm
 *.pgm
+
+# Music files
+*.tta

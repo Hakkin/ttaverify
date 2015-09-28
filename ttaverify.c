@@ -120,7 +120,7 @@ int getFrameCount(ttaFile_t *pFile)
 
 ttaStatus readSeekTable(ttaFile_t *pFile)
 {
-    int frameCount = getFrameCount(pFile);
+    unsigned int frameCount = getFrameCount(pFile);
 
     if ((pFile->seekTable.seekPoints = malloc(4 * frameCount)) == NULL)
     {
@@ -149,7 +149,7 @@ ttaStatus readFrames(ttaFile_t *pFile)
     }
     for (int i = 0; i < frameCount; i++)
     {
-        int frameSize = pFile->seekTable.seekPoints[i].frameSize - 4; // -4 to compensate for CRC size
+        unsigned int frameSize = pFile->seekTable.seekPoints[i].frameSize - 4; // -4 to compensate for CRC size
         if ((pFile->frameTable[i].data = malloc(frameSize)) == NULL)
         {
             return TTA_BADMEM;

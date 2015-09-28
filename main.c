@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
     ttaStatus status;
     for (int i = 1; i < argc; i++)
     {
-        status = ttaVerify(argv[i]);
         printf("%s: ", argv[i]);
+        status = ttaVerify(argv[i]);
         switch (status)
         {
             case TTA_OK:

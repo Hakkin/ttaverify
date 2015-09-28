@@ -1,4 +1,7 @@
 #ifndef CRC32_H_INCLUDED
 #define CRC32_H_INCLUDED
-void crc32(const void* data, size_t n_bytes, uint32_t* crc);
+#include <stdlib.h>
+#include <stdint.h>
+
+uint32_t crc32(const void* data, size_t n_bytes);
 #endif // CRC32_H_INCLUDED

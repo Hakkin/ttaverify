@@ -92,7 +92,7 @@ ttaStatus readTTA(ttaFile_t *pFile)
 
 ttaStatus readHeader(ttaFile_t *pFile)
 {
-    if (fread(&pFile->streamHeader, 22, 1, pFile->file) != 22)
+    if (fread(&pFile->streamHeader, 22, 1, pFile->file) != 1)
     {
         return TTA_BADIO;
     }

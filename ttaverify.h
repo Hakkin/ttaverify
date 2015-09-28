@@ -5,6 +5,7 @@ typedef enum
 {
     TTA_OK,        // Success
     TTA_BADIO,     // IO error (couldn't read file)
+    TTA_BADMEM,    // Memory error (could't allocate memory)
     TTA_BADFORMAT, // Format error (not TTA file)
     TTA_BADHEADER, // Stream header CRC error
     TTA_BADSEEK,   // Seek table CRC error

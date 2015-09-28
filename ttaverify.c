@@ -143,7 +143,7 @@ ttaStatus readFrames(ttaFile_t *pFile)
 {
     int frameCount = getFrameCount(pFile);
 
-    if ((pFile->frameTable = malloc(sizeof(ttaFrame_t) * frameCount)) == NULL)
+    if ((pFile->frameTable = calloc(frameCount, sizeof(ttaFrame_t))) == NULL)
     {
         return TTA_BADMEM;
     }

@@ -11,31 +11,35 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    ttaStatus status = ttaVerify(argv[1]);
-    printf("%s: ", argv[1]);
-    switch (status)
+    ttaStatus status;
+    for (int i = 1; i < argc; i++)
     {
-        case TTA_OK:
-            printf("OK\n");
-            break;
-        case TTA_BADIO:
-            printf("Could not read file\n");
-            break;
-        case TTA_BADMEM:
-            printf("Could not allocate memory for file\n");
-            break;
-        case TTA_BADFORMAT:
-            printf("File is not a TTA file\n");
-            break;
-        case TTA_BADHEADER:
-            printf("File has a corrupt header\n");
-            break;
-        case TTA_BADSEEK:
-            printf("File has a corrupt seek table\n");
-            break;
-        case TTA_BADFRAME:
-            printf("File has one or more corrupt frames\n");
-            break;
+        status = ttaVerify(argv[i]);
+        printf("%s: ", argv[i]);
+        switch (status)
+        {
+            case TTA_OK:
+                printf("OK\n");
+                break;
+            case TTA_BADIO:
+                printf("Could not read file\n");
+                break;
+            case TTA_BADMEM:
+                printf("Could not allocate memory for file\n");
+                break;
+            case TTA_BADFORMAT:
+                printf("File is not a TTA file\n");
+                break;
+            case TTA_BADHEADER:
+                printf("File has a corrupt header\n");
+                break;
+            case TTA_BADSEEK:
+                printf("File has a corrupt seek table\n");
+                break;
+            case TTA_BADFRAME:
+                printf("File has one or more corrupt frames\n");
+                break;
+        }
     }
 
     return status;

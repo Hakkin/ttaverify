@@ -97,9 +97,9 @@ ttaStatus readHeader(ttaFile_t *pFile)
 		return TTA_BADIO;
 	}
 	if (pFile->streamHeader.signature[0] != 'T' ||
-		pFile->streamHeader.signature[1] != 'T' ||
-		pFile->streamHeader.signature[2] != 'A' ||
-		pFile->streamHeader.signature[3] != '1')
+	    pFile->streamHeader.signature[1] != 'T' ||
+	    pFile->streamHeader.signature[2] != 'A' ||
+	    pFile->streamHeader.signature[3] != '1')
 	{
 		return TTA_BADFORMAT;
 	}
@@ -133,7 +133,7 @@ ttaStatus readSeekTable(ttaFile_t *pFile)
 		return TTA_BADMEM;
 	}
 	if (fread(pFile->seekTable.seekPoints, 4, frameCount, pFile->file) != frameCount ||
-		fread(&pFile->seekTable.crc32, 4, 1, pFile->file) != 1)
+	    fread(&pFile->seekTable.crc32, 4, 1, pFile->file) != 1)
 	{
 		return TTA_BADIO;
 	}
@@ -161,7 +161,7 @@ ttaStatus readFrames(ttaFile_t *pFile)
 			return TTA_BADMEM;
 		}
 		if (fread(pFile->frameTable[i].data, 1, frameSize, pFile->file) != frameSize ||
-			fread(&pFile->frameTable[i].crc32, 4, 1, pFile->file) != 1)
+		    fread(&pFile->frameTable[i].crc32, 4, 1, pFile->file) != 1)
 		{
 			return TTA_BADIO;
 		}

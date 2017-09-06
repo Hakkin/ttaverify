@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I. -O2 --std=c99
 
-LIBS=-lm
+LDFLAGS=-lm
 
 DEP = ttaverify.h crc32.h
 
@@ -11,7 +11,7 @@ OBJ = crc32.o main.o ttaverify.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 ttaverify: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 .PHONY: clean
 

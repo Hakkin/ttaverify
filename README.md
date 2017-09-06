@@ -10,7 +10,7 @@ To use, simply pass one or more filenames into the program and it will output th
 $ ttaverify MyAlbum.tta CorruptHeader.tta CorruptSeek.tta CorruptFrames.tta
 
 MyAlbum.tta: OK
-CorruptHeader.tta: File has a corrupt header
+CorruptHeader.tta: File has a corrupt or invalid header
 CorruptSeek.tta: File has a corrupt seek table
 CorruptFrames.tta: File has one or more corrupt frames
 ```

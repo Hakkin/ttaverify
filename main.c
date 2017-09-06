@@ -1,14 +1,3 @@
-/*
- * This software is in the public domain.
- * Where that dedication is not recognized, you are granted a perpetual,
- * irrevocable license to copy and modify these files however you want.
- * This software is provided "as is" without warranty of any kind,
- * either expressed or implied.
- * In no event shall the author(s) be liable for any claim, damages or other
- * liability arising from, out of or in connection with the software or the
- * use or other dealings in the software.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,10 +1,3 @@
-/* Standard CRC32 checksum: fast public domain implementation for
- * little-endian architectures.  Written for compilation with an
- * optimizer set to perform loop unwinding.  Outputs the checksum for
- * each file given as a command line argument.  Invalid file names and
- * files that cause errors are silently skipped.  The program reads
- * from stdin if it is called with no arguments. */
-
 #include <stdlib.h>
 #include <stdint.h>
 

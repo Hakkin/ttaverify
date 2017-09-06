@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 				printf("File is not a TTA file\n");
 				break;
 			case TTA_BADHEADER:
-				printf("File has a corrupt header\n");
+				printf("File has a corrupt or invalid header\n");
 				break;
 			case TTA_BADSEEK:
 				printf("File has a corrupt seek table\n");

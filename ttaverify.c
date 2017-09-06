@@ -62,7 +62,7 @@ typedef struct
 // Internal functions
 static ttaStatus readTTA(ttaFile_t *pFile);
 static ttaStatus readHeader(ttaFile_t *pFile);
-static int getFrameCount(ttaFile_t *pFile);
+static size_t getFrameCount(ttaFile_t *pFile);
 static ttaStatus readSeekTable(ttaFile_t *pFile);
 static ttaStatus readFrames(ttaFile_t *pFile);
 static void destroyTTA(ttaFile_t *pFile);
@@ -114,6 +114,12 @@ ttaStatus readHeader(ttaFile_t *pFile)
 	{
 		return TTA_BADFORMAT;
 	}
+	// Either of these being 0 will lead to a divide by 0 error in getFrameCount
+	if (pFile->streamHeader.sampleRate == 0 ||
+	    pFile->streamHeader.dataLength == 0)
+	{
+		return TTA_BADHEADER;
+	}
 	if (crc32(&pFile->streamHeader, 18) != pFile->streamHeader.crc32)
 	{
 		return TTA_BADHEADER;
@@ -122,16 +128,16 @@ ttaStatus readHeader(ttaFile_t *pFile)
 	return TTA_OK;
 }
 
-int getFrameCount(ttaFile_t *pFile)
+size_t getFrameCount(ttaFile_t *pFile)
 {
-	double samplesPerFrame = (double)pFile->streamHeader.sampleRate * FRAME_TIME;
+	uint64_t samplesPerFrame = (uint64_t)(FRAME_TIME * pFile->streamHeader.sampleRate);
 	uint32_t dataLength = pFile->streamHeader.dataLength;
-	return dataLength / samplesPerFrame + (fmod(dataLength, samplesPerFrame) != 0);
+	return dataLength / samplesPerFrame + (dataLength % samplesPerFrame ? 1 : 0);
 }
 
 ttaStatus readSeekTable(ttaFile_t *pFile)
 {
-	unsigned int frameCount = getFrameCount(pFile);
+	size_t frameCount = getFrameCount(pFile);
 
 	if ((pFile->seekTable.seekPoints = malloc(4 * frameCount)) == NULL)
 	{
@@ -152,7 +158,7 @@ ttaStatus readSeekTable(ttaFile_t *pFile)
 
 ttaStatus readFrames(ttaFile_t *pFile)
 {
-	int frameCount = getFrameCount(pFile);
+	size_t frameCount = getFrameCount(pFile);
 
 	if ((pFile->frameTable = calloc(frameCount, sizeof(ttaFrame_t))) == NULL)
 	{
@@ -160,7 +166,7 @@ ttaStatus readFrames(ttaFile_t *pFile)
 	}
 	for (int i = 0; i < frameCount; i++)
 	{
-		unsigned int frameSize = pFile->seekTable.seekPoints[i].frameSize - 4; // -4 to compensate for CRC size
+		size_t frameSize = pFile->seekTable.seekPoints[i].frameSize - 4; // -4 to compensate for CRC size
 		if ((pFile->frameTable[i].data = malloc(frameSize)) == NULL)
 		{
 			return TTA_BADMEM;
@@ -202,7 +208,3 @@ void destroyTTA(ttaFile_t *pFile)
 		fclose(pFile->file);
 	}
 }
-
-
-
-

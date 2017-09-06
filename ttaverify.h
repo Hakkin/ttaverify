@@ -14,13 +14,13 @@
 
 typedef enum
 {
-    TTA_OK,        // Success
-    TTA_BADIO,     // IO error (couldn't read file)
-    TTA_BADMEM,    // Memory error (could't allocate memory)
-    TTA_BADFORMAT, // Format error (not TTA file)
-    TTA_BADHEADER, // Stream header CRC error
-    TTA_BADSEEK,   // Seek table CRC error
-    TTA_BADFRAME   // Frame CRC error
+	TTA_OK,		// Success
+	TTA_BADIO,	 // IO error (couldn't read file)
+	TTA_BADMEM,	// Memory error (could't allocate memory)
+	TTA_BADFORMAT, // Format error (not TTA file)
+	TTA_BADHEADER, // Stream header CRC error
+	TTA_BADSEEK,   // Seek table CRC error
+	TTA_BADFRAME   // Frame CRC error
 } ttaStatus;
 
 ttaStatus ttaVerify(char *filename);

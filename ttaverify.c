@@ -169,6 +169,9 @@ ttaStatus readFrames(ttaFile_t *pFile)
 		{
 			return TTA_BADFRAME;
 		}
+
+		free(pFile->frameTable[i].data);
+		pFile->frameTable[i].data = NULL;
 	}
 
 	return TTA_OK;

@@ -5,39 +5,41 @@
 
 int main(int argc, char *argv[])
 {
+	setbuf(stderr, NULL);
+
 	if (argc < 2)
 	{
-		printf("Please specify input file.\n");
+		fprintf(stderr, "Please specify input file.\n");
 		return 0;
 	}
 
 	ttaStatus status;
 	for (int i = 1; i < argc; i++)
 	{
-		printf("%s: ", argv[i]);
+		fprintf(stderr, "%s: ", argv[i]);
 		status = ttaVerify(argv[i]);
 		switch (status)
 		{
 			case TTA_OK:
-				printf("OK\n");
+				fprintf(stderr, "OK\n");
 				break;
 			case TTA_BADIO:
-				printf("Could not read file\n");
+				fprintf(stderr, "Could not read file\n");
 				break;
 			case TTA_BADMEM:
-				printf("Could not allocate memory for file\n");
+				fprintf(stderr, "Could not allocate memory for file\n");
 				break;
 			case TTA_BADFORMAT:
-				printf("File is not a TTA file\n");
+				fprintf(stderr, "File is not a TTA file\n");
 				break;
 			case TTA_BADHEADER:
-				printf("File has a corrupt or invalid header\n");
+				fprintf(stderr, "File has a corrupt or invalid header\n");
 				break;
 			case TTA_BADSEEK:
-				printf("File has a corrupt seek table\n");
+				fprintf(stderr, "File has a corrupt seek table\n");
 				break;
 			case TTA_BADFRAME:
-				printf("File has one or more corrupt frames\n");
+				fprintf(stderr, "File has one or more corrupt frames\n");
 				break;
 		}
 	}
